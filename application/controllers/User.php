@@ -6,9 +6,6 @@ class User extends CI_Controller {
 	public function __construct(){
         parent::__construct();
 
-        // if (empty($this->session->userdata('nip'))) {
-        //     redirect('user/login');
-        // }
 		$this->load->library('session');
         $this->load->model('user_model');
 		$this->load->helper(array('form', 'url', 'date'));
@@ -28,7 +25,11 @@ class User extends CI_Controller {
 			$logdata = $this->user_model->login($username, $password);
 			// var_dump($logdata[0]);
 			$this->session->set_userdata($logdata[0]);
-			redirect('Dashboard/index');
+			if ($this->session->userdata('IsAdmin') == 0){
+				redirect('Home');
+			}else{
+				redirect('Dashboard/index');
+			}
 		}
 	}
 
