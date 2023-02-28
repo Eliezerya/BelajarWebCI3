@@ -26,7 +26,7 @@
 
     <li class="nav-item active">
 		<a class="nav-link" href="<?php echo base_url('store') ;?>">
-			<i class="fas fa-building"></i>
+			<i class="fas fa-store"></i>
 			<span>Store</span></a>
 	</li>
 

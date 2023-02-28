@@ -65,9 +65,11 @@ class Home extends CI_Controller
 
 		$this->load->library('upload', $config);
 
-		if (!$this->upload->do_upload('image')) {
-			$this->viewDetail();
+		if (empty($_FILE['file']['name'])) {
+			$id = $this->uri->segment(3);
+			redirect('Home/viewDetail/'.$id);
 		} else {
+			$this->upload->do_upload('image');
 			$id = $this->uri->segment(3);
 			$data = array(
 				'ProductID' => $id,
