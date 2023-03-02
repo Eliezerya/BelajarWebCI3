@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * @property $checkout_model
+ * @property $uri
  */
 class Home extends CI_Controller
 {
@@ -59,30 +60,36 @@ class Home extends CI_Controller
 
 		$config = array(
 			'upload_path' => './files/',
-			'allowed_types' => 'jpeg|jpg|png',
-			'max_size' => 5000
+			'allowed_types' => 'jpeg|jpg|png|gift|PNG',
+			'max_size' => 5000,
+			'file_name' => date('YmdHis').$_FILES["image"]['name']
 		);
+
 
 		$this->load->library('upload', $config);
 
-		if (empty($_FILE['file']['name'])) {
+		if (!$this->upload->do_upload('image')) {
 			$id = $this->uri->segment(3);
 			redirect('Home/viewDetail/'.$id);
 		} else {
-			$this->upload->do_upload('image');
 			$id = $this->uri->segment(3);
+
+
 			$data = array(
 				'ProductID' => $id,
-				'UserID' => 2,
+				'UserID' => $this->session->userdata['UserID'],
 				'CreatedAt' => date('Y-m-d H:i:s'),
-				'Status' => 0
+				'Status' => 0,
+				'image' => $config['file_name']
 			);
 
 			if ($this->checkout_model->insert($data)) {
+
 				$data1 = array(
 					'title' => "Success",
 					'page' => 'pages/landing/success'
 				);
+
 				$this->load->view('theme/landing', $data1);
 			}
 		}

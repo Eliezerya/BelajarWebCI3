@@ -72,8 +72,8 @@
 				<form action="<?php echo base_url('home/checkout/'.$product["ProductID"]) ;?>" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="">Upload Bukti Pembayaran</label>
-						<input type="file" class="form-control my-2" name="file" id="image" />
-						<?= form_error('image', '<small class="text-danger pl-3" style="color:red;">', '</small>') ;?>
+						<input type="file" class="form-control my-2" name="image" id="image" />
+						<?php form_error('image', '<small class="text-danger pl-3" style="color:red;">', '</small>');?>
 					</div>
 					<button class="btn btn-primary" type="submit">Selesai</button>
 					
