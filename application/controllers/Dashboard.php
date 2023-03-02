@@ -8,12 +8,9 @@ class Dashboard extends CI_Controller {
     parent:: __construct();
 
     $this->load->library('session');
-    if (empty($this->session->userdata('Username')) ) {
+    if (empty($this->session->userdata('Username'))) {
       redirect('user/login');
     }
-	if ($this->session->userdata('IsAdmin') == 0){
-		redirect('home');
-	}
 
     $this->load->model(array('store_model'));
     

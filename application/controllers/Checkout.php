@@ -37,4 +37,13 @@ class Checkout extends CI_Controller {
 			redirect('checkout/index');
 		}
 	}
+
+    public function generatePDF()
+    {
+		$data['checkout'] = $this->checkout_model->getCheckout($this->session->userdata('UserID'));
+		$this->load->library('pdf');
+		$this->pdf->setPaper('A4', 'potrait');
+		$this->pdf->filename = "laporan-pembelian.pdf";
+		$this->pdf->load_view('pages/pdf/laporan_pembelian', $data);
+	}
 }
